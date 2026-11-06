@@ -1,8 +1,0 @@
-{
-  "parent": "mishanguc:block/simple_handrail_post",
-  "textures": {
-    "bottom": "minecraft:block/purple_stained_glass",
-    "texture": "minecraft:block/purple_stained_glass",
-    "top": "minecraft:block/purple_stained_glass"
-  }
-}

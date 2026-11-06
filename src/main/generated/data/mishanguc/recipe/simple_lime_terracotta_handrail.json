@@ -1,8 +1,0 @@
-{
-  "type": "minecraft:stonecutting",
-  "ingredient": "minecraft:lime_terracotta",
-  "result": {
-    "count": 5,
-    "id": "mishanguc:simple_lime_terracotta_handrail"
-  }
-}

@@ -1,8 +1,0 @@
-{
-  "parent": "mishanguc:block/hung_sign",
-  "textures": {
-    "bar": "minecraft:block/cinnabar",
-    "texture": "minecraft:block/cinnabar",
-    "texture_top": "minecraft:block/cinnabar"
-  }
-}

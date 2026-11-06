@@ -1,6 +1,5 @@
 package pers.solid.mishang.uc.block;
 
-import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
@@ -98,8 +97,6 @@ public class HungSignBlock extends Block implements SimpleWaterloggedBlock, Enti
   private static final VoxelShape SHAPE_WIDENED_X = box(6.5, 5, 0, 9.5, 16, 16);
   private static final VoxelShape SHAPE_WIDENED_Z = box(0, 5, 6.5, 16, 16, 9.5);
   protected static final RecordCodecBuilder<HungSignBlock, Optional<Block>> BASE_BLOCK_CODEC = BuiltInRegistries.BLOCK.byNameCodec().optionalFieldOf("base_block").forGetter(b -> Optional.ofNullable(b.baseBlock));
-
-  public static final MapCodec<HungSignBlock> CODEC = RecordCodecBuilder.mapCodec(instance -> instance.group(baseBlockCodec(), propertiesCodec()).apply(instance, HungSignBlock::new));
 
   @SuppressWarnings("unchecked")
   protected static <B extends HungSignBlock> RecordCodecBuilder<B, Optional<Block>> baseBlockCodec() {
@@ -364,7 +361,7 @@ public class HungSignBlock extends Block implements SimpleWaterloggedBlock, Enti
         if (!entity.waxed.contains(side)) {
           entity.waxed = addToSet(entity.waxed, side);
           player.sendOverlayMessage(BlockEntityWithText.MESSAGE_WAX_ON);
-          world.levelEvent(null, LevelEvent.PARTICLES_AND_SOUND_WAX_ON, entity.getBlockPos(), 0);
+          world.levelEvent(null, LevelEvent.PARTICLES_WAX_ON, entity.getBlockPos(), 0);
           entity.markDirtyAndUpdate();
           if (!player.isCreative()) stack.shrink(1);
           return InteractionResult.SUCCESS;
@@ -508,11 +505,6 @@ public class HungSignBlock extends Block implements SimpleWaterloggedBlock, Enti
     } else {
       return super.skipRendering(state, stateFrom, direction);
     }
-  }
-
-  @Override
-  protected MapCodec<? extends HungSignBlock> codec() {
-    return CODEC;
   }
 
   /**

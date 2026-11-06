@@ -19,8 +19,6 @@ import pers.solid.mishang.uc.blockentity.ColoredHungSignBlockEntity;
 import java.util.List;
 
 public class ColoredGlowingHungSignBlock extends GlowingHungSignBlock implements ColoredBlock {
-  public static final MapCodec<ColoredGlowingHungSignBlock> CODEC = RecordCodecBuilder.mapCodec(instance -> instance.group(baseBlockCodec(), propertiesCodec()).apply(instance, (block, properties) -> new ColoredGlowingHungSignBlock(block.orElse(null), properties)));
-
   public ColoredGlowingHungSignBlock(@Nullable Block baseBlock, Properties settings) {
     super(baseBlock, settings);
   }
@@ -43,10 +41,5 @@ public class ColoredGlowingHungSignBlock extends GlowingHungSignBlock implements
   @Override
   public LootTable.Builder getLootTable(BlockLootSubProvider blockLootTableGenerator) {
     return blockLootTableGenerator.createSingleItemTable(this).apply(COPY_COLOR_LOOT_FUNCTION);
-  }
-
-  @Override
-  protected MapCodec<? extends ColoredGlowingHungSignBlock> codec() {
-    return CODEC;
   }
 }

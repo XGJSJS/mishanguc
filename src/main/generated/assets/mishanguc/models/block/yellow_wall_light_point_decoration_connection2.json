@@ -1,6 +1,0 @@
-{
-  "parent": "mishanguc:block/wall_light_point_decoration_connection2",
-  "textures": {
-    "light": "mishanguc:block/yellow_light"
-  }
-}

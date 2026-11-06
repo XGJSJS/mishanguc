@@ -36,11 +36,6 @@ import pers.solid.mishang.uc.item.ColoredTintSource;
 import java.util.List;
 
 public class ColoredSlabBlock extends SlabBlock implements ColoredBlock {
-  public static final MapCodec<ColoredSlabBlock> CODEC = RecordCodecBuilder.mapCodec(i -> i.group(
-      BuiltInRegistries.BLOCK.byNameCodec().fieldOf("base_block").forGetter(o -> o.baseBlock),
-      propertiesCodec()
-  ).apply(i, ColoredSlabBlock::new));
-
   public final Block baseBlock;
 
   public ColoredSlabBlock(@Nullable Block baseBlock, Properties settings) {
@@ -89,10 +84,5 @@ public class ColoredSlabBlock extends SlabBlock implements ColoredBlock {
   public RecipeBuilder getCraftingRecipe(RecipeProvider recipeGenerator) {
     return ((ShapedRecipeBuilder) recipeGenerator.slabBuilder(RecipeCategory.BUILDING_BLOCKS, this, Ingredient.of(baseBlock)))
         .unlockedBy(RecipeProvider.getHasName(this.baseBlock), recipeGenerator.has(this.baseBlock));
-  }
-
-  @Override
-  public MapCodec<? extends ColoredSlabBlock> codec() {
-    return CODEC;
   }
 }

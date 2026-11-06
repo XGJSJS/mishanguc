@@ -83,8 +83,6 @@ public class WallSignBlock extends FaceAttachedHorizontalDirectionalBlock implem
     return BuiltInRegistries.BLOCK.byNameCodec().fieldOf("base_block").forGetter(b -> b.baseBlock);
   }
 
-  public static final MapCodec<WallSignBlock> CODEC = RecordCodecBuilder.mapCodec(instance -> instance.group(createBaseBlockCodec(), propertiesCodec()).apply(instance, WallSignBlock::new));
-
   public static final BooleanProperty WATERLOGGED = BlockStateProperties.WATERLOGGED;
   public static final Map<Direction, VoxelShape> SHAPES_WHEN_WALL =
       MishangUtils.createHorizontalDirectionToShape(0, 4, 0, 16, 12, 1);
@@ -217,7 +215,7 @@ public class WallSignBlock extends FaceAttachedHorizontalDirectionalBlock implem
         if (!entity.waxed) {
           entity.waxed = true;
           player.sendOverlayMessage(BlockEntityWithText.MESSAGE_WAX_ON);
-          world.levelEvent(null, LevelEvent.PARTICLES_AND_SOUND_WAX_ON, entity.getBlockPos(), 0);
+          world.levelEvent(null, LevelEvent.PARTICLES_WAX_ON, entity.getBlockPos(), 0);
           entity.markDirtyAndUpdate();
           if (!player.isCreative()) stack.shrink(1);
           return InteractionResult.SUCCESS;
@@ -341,11 +339,6 @@ public class WallSignBlock extends FaceAttachedHorizontalDirectionalBlock implem
     } else {
       return super.skipRendering(state, stateFrom, direction);
     }
-  }
-
-  @Override
-  protected MapCodec<? extends WallSignBlock> codec() {
-    return CODEC;
   }
 
   @Override

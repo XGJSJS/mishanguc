@@ -1,8 +1,0 @@
-{
-  "parent": "mishanguc:block/simple_handrail_post_side",
-  "textures": {
-    "bottom": "minecraft:block/cobblestone",
-    "texture": "minecraft:block/cobblestone",
-    "top": "minecraft:block/cobblestone"
-  }
-}

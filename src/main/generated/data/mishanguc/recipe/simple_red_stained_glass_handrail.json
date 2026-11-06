@@ -1,8 +1,0 @@
-{
-  "type": "minecraft:stonecutting",
-  "ingredient": "minecraft:red_stained_glass",
-  "result": {
-    "count": 5,
-    "id": "mishanguc:simple_red_stained_glass_handrail"
-  }
-}

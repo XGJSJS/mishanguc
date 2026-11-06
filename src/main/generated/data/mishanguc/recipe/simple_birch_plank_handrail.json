@@ -1,8 +1,0 @@
-{
-  "type": "minecraft:stonecutting",
-  "ingredient": "minecraft:birch_planks",
-  "result": {
-    "count": 5,
-    "id": "mishanguc:simple_birch_plank_handrail"
-  }
-}

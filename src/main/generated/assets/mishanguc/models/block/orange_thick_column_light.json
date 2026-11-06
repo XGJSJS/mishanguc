@@ -1,6 +1,0 @@
-{
-  "parent": "mishanguc:block/thick_column_light",
-  "textures": {
-    "light": "mishanguc:block/orange_light"
-  }
-}

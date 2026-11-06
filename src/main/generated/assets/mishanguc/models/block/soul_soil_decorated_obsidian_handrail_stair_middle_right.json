@@ -1,8 +1,0 @@
-{
-  "parent": "mishanguc:block/glass_handrail_stair_middle_right",
-  "textures": {
-    "decoration": "minecraft:block/soul_soil",
-    "frame": "minecraft:block/obsidian",
-    "glass": "mishanguc:block/glass_unframed"
-  }
-}

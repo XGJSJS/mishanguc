@@ -1,6 +1,0 @@
-{
-  "parent": "mishanguc:block/road_mark",
-  "textures": {
-    "texture": "mishanguc:block/arrow_straight"
-  }
-}

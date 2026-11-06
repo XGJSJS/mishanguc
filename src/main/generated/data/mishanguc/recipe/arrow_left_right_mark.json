@@ -1,7 +1,0 @@
-{
-  "type": "minecraft:stonecutting",
-  "ingredient": "#c:dyes/white",
-  "result": {
-    "id": "mishanguc:arrow_left_right_mark"
-  }
-}

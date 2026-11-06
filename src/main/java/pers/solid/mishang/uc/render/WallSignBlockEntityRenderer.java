@@ -25,6 +25,7 @@ import net.minecraft.world.phys.Vec3;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import org.jetbrains.annotations.Nullable;
 import org.jetbrains.annotations.Unmodifiable;
+import org.joml.Matrix4f;
 import pers.solid.mishang.uc.block.WallSignBlock;
 import pers.solid.mishang.uc.blockentity.WallSignBlockEntity;
 import pers.solid.mishang.uc.blocks.WallSignBlocks;
@@ -92,12 +93,12 @@ public class WallSignBlockEntityRenderer<T extends WallSignBlockEntity> implemen
     matrices.translate(0.5, 0.5, 0.5);
     final Direction facing = state.facing;
     final AttachFace face = state.face;
-    matrices.mulPose(Axis.YP.rotationDegrees(-facing.toYRot()));
+    matrices.mulPose(Axis.YP.rotateDegrees(new Matrix4f(), -facing.toYRot()));
     matrices.mulPose(
-        Axis.XP.rotationDegrees(
+        Axis.XP.rotateDegrees(new Matrix4f(),
             face == AttachFace.CEILING ? 90 : face == AttachFace.FLOOR ? -90 : 0));
     if (face != AttachFace.WALL) {
-      matrices.mulPose(Axis.ZP.rotationDegrees(180));
+      matrices.mulPose(Axis.ZP.rotateDegrees(new Matrix4f(), 180));
     }
     matrices.scale(1 / 16f, -1 / 16f, 1 / 16f);
     matrices.translate(0, 0, (state.invisible ? -8 : -7) + .0125);

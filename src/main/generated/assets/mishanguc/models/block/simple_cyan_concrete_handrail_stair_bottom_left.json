@@ -1,8 +1,0 @@
-{
-  "parent": "mishanguc:block/simple_handrail_stair_bottom_left",
-  "textures": {
-    "bottom": "minecraft:block/cyan_concrete",
-    "texture": "minecraft:block/cyan_concrete",
-    "top": "minecraft:block/cyan_concrete"
-  }
-}

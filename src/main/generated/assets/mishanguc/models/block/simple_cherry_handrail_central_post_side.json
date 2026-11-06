@@ -1,8 +1,0 @@
-{
-  "parent": "mishanguc:block/simple_handrail_post_side",
-  "textures": {
-    "bottom": "minecraft:block/cherry_log",
-    "texture": "minecraft:block/cherry_log",
-    "top": "minecraft:block/cherry_log"
-  }
-}

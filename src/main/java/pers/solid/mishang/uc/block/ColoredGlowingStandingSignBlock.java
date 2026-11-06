@@ -20,8 +20,6 @@ import java.util.List;
 import java.util.Optional;
 
 public class ColoredGlowingStandingSignBlock extends GlowingStandingSignBlock implements ColoredBlock {
-  public static final MapCodec<ColoredGlowingStandingSignBlock> CODEC = RecordCodecBuilder.mapCodec(instance -> instance.group(baseBlockCodec(), propertiesCodec()).apply(instance, ColoredGlowingStandingSignBlock::new));
-
   protected ColoredGlowingStandingSignBlock(Optional<Block> baseBlock, Properties settings) {
     this(baseBlock.orElse(null), settings);
   }
@@ -49,10 +47,5 @@ public class ColoredGlowingStandingSignBlock extends GlowingStandingSignBlock im
   @Override
   public LootTable.Builder getLootTable(BlockLootSubProvider blockLootTableGenerator) {
     return blockLootTableGenerator.createSingleItemTable(this).apply(COPY_COLOR_LOOT_FUNCTION);
-  }
-
-  @Override
-  protected MapCodec<? extends ColoredGlowingStandingSignBlock> codec() {
-    return CODEC;
   }
 }

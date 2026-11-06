@@ -1,8 +1,0 @@
-{
-  "parent": "mishanguc:block/simple_handrail_post",
-  "textures": {
-    "bottom": "minecraft:block/jungle_planks",
-    "texture": "minecraft:block/jungle_planks",
-    "top": "minecraft:block/jungle_planks"
-  }
-}

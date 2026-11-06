@@ -1,8 +1,0 @@
-{
-  "parent": "mishanguc:block/colored_slab_top",
-  "textures": {
-    "bottom": "mishanguc:block/pale_bricks",
-    "side": "mishanguc:block/pale_bricks",
-    "top": "mishanguc:block/pale_bricks"
-  }
-}

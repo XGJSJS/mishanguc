@@ -49,7 +49,6 @@ import pers.solid.mishang.uc.data.MishangucTextureKeys;
 import java.util.Map;
 
 public class WallLightBlock extends DirectionalBlock implements SimpleWaterloggedBlock, MishangucBlock {
-  public static final MapCodec<WallLightBlock> CODEC = RecordCodecBuilder.mapCodec(instance -> instance.group(Codec.STRING.fieldOf("light_color").forGetter(b -> b.lightColor), propertiesCodec(), Codec.BOOL.fieldOf("large_shape").forGetter(b -> b.largeShape)).apply(instance, WallLightBlock::new));
   protected static final BooleanProperty WEST = BlockStateProperties.WEST;
   protected static final BooleanProperty EAST = BlockStateProperties.EAST;
   protected static final BooleanProperty SOUTH = BlockStateProperties.SOUTH;
@@ -216,11 +215,6 @@ public class WallLightBlock extends DirectionalBlock implements SimpleWaterlogge
           .requires(Items.CONCRETE.gray())
           .unlockedBy(RecipeProvider.getHasName(tube), recipeGenerator.has(tube));
     }
-  }
-
-  @Override
-  protected MapCodec<? extends WallLightBlock> codec() {
-    return CODEC;
   }
 
   public static Item getBaseLight(String namespace, String lightColor, Block self) {

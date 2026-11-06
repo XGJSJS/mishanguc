@@ -22,7 +22,7 @@ public record EditSignPayload(BlockPos blockPos, Optional<Direction> direction, 
       buf.writeBoolean(false);
       if (value.blockHitResult.isPresent()) {
         buf.writeBoolean(true);
-        buf.writeBlockHitResult(value.blockHitResult.get());
+        BlockHitResult.STREAM_CODEC.encode(buf, value.blockHitResult.get());
       } else {
         buf.writeBoolean(false);
       }
@@ -35,7 +35,7 @@ public record EditSignPayload(BlockPos blockPos, Optional<Direction> direction, 
     } else {
       final boolean hitPresent = buf.readBoolean();
       if (hitPresent) {
-        return new EditSignPayload(blockPos, Optional.empty(), Optional.of(buf.readBlockHitResult()));
+        return new EditSignPayload(blockPos, Optional.empty(), Optional.of(BlockHitResult.STREAM_CODEC.decode(buf)));
       } else {
         return new EditSignPayload(blockPos, Optional.empty(), Optional.empty());
       }

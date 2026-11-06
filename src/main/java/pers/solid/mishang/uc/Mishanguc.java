@@ -12,11 +12,12 @@ import net.fabricmc.fabric.api.event.player.AttackBlockCallback;
 import net.fabricmc.fabric.api.event.player.AttackEntityCallback;
 import net.fabricmc.fabric.api.event.player.UseBlockCallback;
 import net.fabricmc.fabric.api.event.player.UseEntityCallback;
+import net.fabricmc.fabric.api.item.v1.DefaultItemComponentEvents;
 import net.fabricmc.fabric.api.networking.v1.PayloadTypeRegistry;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
 import net.fabricmc.fabric.api.registry.FlammableBlockRegistry;
-import net.fabricmc.fabric.api.registry.FuelValueEvents;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.Identifier;
@@ -30,12 +31,14 @@ import net.minecraft.world.InteractionResult;
 import net.minecraft.world.item.DyeColor;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.component.Compostable;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.pattern.BlockInWorld;
 import net.minecraft.world.level.gamerules.GameRules;
+import net.minecraft.world.level.storage.loot.providers.number.ints.ResolvableInt;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.HitResult;
 import org.apache.commons.lang3.Validate;
@@ -324,7 +327,12 @@ public class Mishanguc implements ModInitializer {
     flammableBlockRegistry.add(ColoredBlocks.COLORED_WOOL, 30, 60);
     fuelRegistry.put(ColoredBlocks.COLORED_WOOL, 100);
 
-    FuelValueEvents.BUILD.register((builder, context) -> fuelRegistry.forEach(builder::add));
+    DefaultItemComponentEvents.MODIFY.register(context -> {
+        fuelRegistry.forEach((block, fuel) -> {
+            context.modify(block.asItem(), builder -> builder.set(DataComponents.COMPOSTABLE,
+                    new Compostable(new ResolvableInt.Constant(fuel))));
+        });
+    });
   }
 
   private static void registerNetworkingReceiver() {

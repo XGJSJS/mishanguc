@@ -19,8 +19,6 @@ import pers.solid.mishang.uc.blockentity.ColoredWallSignBlockEntity;
 import java.util.List;
 
 public class ColoredWallSignBlock extends WallSignBlock implements ColoredBlock {
-  public static final MapCodec<ColoredWallSignBlock> CODEC = RecordCodecBuilder.mapCodec(instance -> instance.group(createBaseBlockCodec(), propertiesCodec()).apply(instance, ColoredWallSignBlock::new));
-
   public ColoredWallSignBlock(Block baseBlock, Properties settings) {
     super(baseBlock, settings);
   }
@@ -44,10 +42,5 @@ public class ColoredWallSignBlock extends WallSignBlock implements ColoredBlock 
   @Override
   public LootTable.Builder getLootTable(BlockLootSubProvider blockLootTableGenerator) {
     return blockLootTableGenerator.createSingleItemTable(this).apply(COPY_COLOR_LOOT_FUNCTION);
-  }
-
-  @Override
-  protected MapCodec<? extends ColoredWallSignBlock> codec() {
-    return CODEC;
   }
 }

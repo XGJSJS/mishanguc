@@ -1,6 +1,0 @@
-{
-  "parent": "mishanguc:block/medium_wall_light",
-  "textures": {
-    "light": "mishanguc:block/cyan_light"
-  }
-}

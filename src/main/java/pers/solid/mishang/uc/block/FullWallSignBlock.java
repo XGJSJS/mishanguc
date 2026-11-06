@@ -37,8 +37,6 @@ import pers.solid.mishang.uc.data.ModelHelper;
 import java.util.Map;
 
 public class FullWallSignBlock extends WallSignBlock {
-  public static final MapCodec<FullWallSignBlock> CODEC = RecordCodecBuilder.mapCodec(instance -> instance.group(createBaseBlockCodec(), propertiesCodec()).apply(instance, FullWallSignBlock::new));
-
   public static final Map<Direction, VoxelShape> SHAPES_WHEN_WALL =
       MishangUtils.createHorizontalDirectionToShape(0, 0, 0, 16, 16, 1);
   public static final Map<Direction, VoxelShape> SHAPES_WHEN_FLOOR =
@@ -129,10 +127,5 @@ public class FullWallSignBlock extends WallSignBlock {
     } else {
       return false;
     }
-  }
-
-  @Override
-  protected MapCodec<? extends FullWallSignBlock> codec() {
-    return CODEC;
   }
 }

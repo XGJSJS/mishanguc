@@ -1,6 +1,0 @@
-{
-  "parent": "mishanguc:block/light",
-  "textures": {
-    "all": "mishanguc:block/yellow_light"
-  }
-}

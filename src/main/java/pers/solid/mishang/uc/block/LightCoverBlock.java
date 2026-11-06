@@ -25,7 +25,6 @@ import pers.solid.mishang.uc.MishangUtils;
 import java.util.Map;
 
 public class LightCoverBlock extends WallLightBlock {
-  public static final MapCodec<LightCoverBlock> CODEC = RecordCodecBuilder.mapCodec(instance -> instance.group(Codec.STRING.fieldOf("light_color").forGetter(s -> s.lightColor), propertiesCodec()).apply(instance, LightCoverBlock::new));
   private static final Map<Direction, VoxelShape> SHAPE_PER_DIRECTION = MishangUtils.createDirectionToShape(0, 0, 0, 16, 1, 16);
 
   public LightCoverBlock(String lightColor, Properties settings) {
@@ -36,11 +35,6 @@ public class LightCoverBlock extends WallLightBlock {
   @Override
   public VoxelShape getShape(BlockState state, BlockGetter world, BlockPos pos, CollisionContext context) {
     return SHAPE_PER_DIRECTION.get(state.getValue(FACING));
-  }
-
-  @Override
-  protected MapCodec<? extends LightCoverBlock> codec() {
-    return CODEC;
   }
 
   @Override

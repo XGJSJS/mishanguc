@@ -1,8 +1,0 @@
-{
-  "type": "minecraft:stonecutting",
-  "ingredient": "minecraft:light_gray_terracotta",
-  "result": {
-    "count": 5,
-    "id": "mishanguc:simple_light_gray_terracotta_handrail"
-  }
-}

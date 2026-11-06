@@ -1,8 +1,0 @@
-{
-  "parent": "mishanguc:block/light_slab",
-  "textures": {
-    "bottom": "mishanguc:block/pink_light",
-    "side": "mishanguc:block/pink_light",
-    "top": "mishanguc:block/pink_light"
-  }
-}

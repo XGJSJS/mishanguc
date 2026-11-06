@@ -1,7 +1,5 @@
 package pers.solid.mishang.uc.block;
 
-import com.mojang.serialization.MapCodec;
-import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.data.models.BlockModelGenerators;
@@ -11,21 +9,15 @@ import net.minecraft.client.data.models.model.ModelTemplates;
 import net.minecraft.client.data.models.model.TextureMapping;
 import net.minecraft.client.resources.model.sprite.Material;
 import net.minecraft.core.BlockPos;
-import net.minecraft.core.particles.ColorParticleOption;
-import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.data.loot.BlockLootSubProvider;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.Identifier;
-import net.minecraft.util.ExtraCodecs;
-import net.minecraft.util.ParticleUtils;
-import net.minecraft.util.RandomSource;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
-import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.LeavesBlock;
+import net.minecraft.world.level.block.TintedParticleLeavesBlock;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.storage.loot.LootTable;
@@ -38,11 +30,9 @@ import java.util.List;
 import java.util.function.BiFunction;
 
 @ApiStatus.AvailableSince("0.2.4")
-public class ColoredLeavesBlock extends LeavesBlock implements ColoredBlock {
+public class ColoredLeavesBlock extends TintedParticleLeavesBlock implements ColoredBlock {
   private final @Nullable BiFunction<Block, BlockLootSubProvider, LootTable.Builder> lootBuilder;
   private final Identifier texture;
-
-  public static final MapCodec<ColoredLeavesBlock> CODEC = RecordCodecBuilder.mapCodec(instance -> instance.group(ExtraCodecs.floatRange(0.0F, 1.0F).fieldOf("leaf_particle_chance").forGetter((block) -> block.leafParticleChance), propertiesCodec(), Identifier.CODEC.fieldOf("texture").forGetter(o -> o.texture)).apply(instance, (chance, settings1, s) -> new ColoredLeavesBlock(chance, settings1, null, s)));
 
   public ColoredLeavesBlock(float leaveParticleChance, Properties settings, @Nullable BiFunction<Block, BlockLootSubProvider, LootTable.Builder> lootBuilder, Identifier texture) {
     super(leaveParticleChance, settings);
@@ -83,17 +73,5 @@ public class ColoredLeavesBlock extends LeavesBlock implements ColoredBlock {
   public @Nullable LootTable.Builder getLootTable(BlockLootSubProvider blockLootTableGenerator) {
     if (lootBuilder == null) return null;
     return (lootBuilder.apply(this, blockLootTableGenerator).apply(COPY_COLOR_LOOT_FUNCTION));
-  }
-
-  @Override
-  public MapCodec<? extends ColoredLeavesBlock> codec() {
-    return CODEC;
-  }
-
-  @Override
-  protected void spawnFallingLeavesParticle(Level world, BlockPos pos, RandomSource random) {
-    ColorParticleOption entityEffectParticleEffect = ColorParticleOption.create(ParticleTypes.TINTED_LEAVES, world.getClientLeafTintColor(pos));
-    ParticleUtils.spawnParticleBelow(world, pos, random, entityEffectParticleEffect);
-    // 检查彩色树叶的颗粒颜色
   }
 }

@@ -1,8 +1,0 @@
-{
-  "type": "minecraft:stonecutting",
-  "ingredient": "minecraft:white_terracotta",
-  "result": {
-    "count": 20,
-    "id": "mishanguc:white_terracotta_hung_sign_bar"
-  }
-}

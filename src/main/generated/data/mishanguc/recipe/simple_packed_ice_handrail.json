@@ -1,8 +1,0 @@
-{
-  "type": "minecraft:stonecutting",
-  "ingredient": "minecraft:packed_ice",
-  "result": {
-    "count": 5,
-    "id": "mishanguc:simple_packed_ice_handrail"
-  }
-}

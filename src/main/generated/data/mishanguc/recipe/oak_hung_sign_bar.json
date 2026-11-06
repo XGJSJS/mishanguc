@@ -1,8 +1,0 @@
-{
-  "type": "minecraft:stonecutting",
-  "ingredient": "minecraft:oak_wood",
-  "result": {
-    "count": 20,
-    "id": "mishanguc:oak_hung_sign_bar"
-  }
-}

@@ -18,7 +18,6 @@ import java.util.Map;
  * 柱形灯块。
  */
 public class ColumnWallLightBlock extends WallLightBlock {
-  public static final MapCodec<ColumnWallLightBlock> CODEC = RecordCodecBuilder.mapCodec(instance -> instance.group(Codec.STRING.fieldOf("light_color").forGetter(b -> b.lightColor), propertiesCodec(), Codec.INT.fieldOf("size_type").forGetter(block -> block.sizeType)).apply(instance, ColumnWallLightBlock::new));
   private final int sizeType;
   public static final Map<Direction.Axis, VoxelShape> SHAPES7 = createColumnShapes(7);
   public static final Map<Direction.Axis, VoxelShape> SHAPES6 = createColumnShapes(6);
@@ -46,11 +45,6 @@ public class ColumnWallLightBlock extends WallLightBlock {
         Direction.Axis.Y, box(min, 0, min, 16 - min, 16, 16 - min),
         Direction.Axis.Z, box(min, min, 0, 16 - min, 16 - min, 16)
     );
-  }
-
-  @Override
-  protected MapCodec<? extends ColumnWallLightBlock> codec() {
-    return CODEC;
   }
 
   @Override

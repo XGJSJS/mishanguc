@@ -1,7 +1,0 @@
-{
-  "type": "minecraft:stonecutting",
-  "ingredient": "#c:dyes/white",
-  "result": {
-    "id": "mishanguc:lane_non_vehicle_mark"
-  }
-}

@@ -34,6 +34,7 @@ run/
 /icon.xcf
 /icon-large.png
 /icon-wide.png
+src/main/generated
 
 docs/
 

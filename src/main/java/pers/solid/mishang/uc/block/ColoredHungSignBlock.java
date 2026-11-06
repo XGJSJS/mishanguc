@@ -21,8 +21,6 @@ import java.util.List;
 
 @Beta
 public class ColoredHungSignBlock extends HungSignBlock implements ColoredBlock {
-  public static final MapCodec<ColoredHungSignBlock> CODEC = RecordCodecBuilder.mapCodec(instance -> instance.group(baseBlockCodec(), propertiesCodec()).apply(instance, (block, properties) -> new ColoredHungSignBlock(block.orElse(null), properties)));
-
   public ColoredHungSignBlock(@Nullable Block baseBlock, Properties settings) {
     super(baseBlock, settings);
   }
@@ -45,10 +43,5 @@ public class ColoredHungSignBlock extends HungSignBlock implements ColoredBlock 
   @Override
   public LootTable.Builder getLootTable(BlockLootSubProvider blockLootTableGenerator) {
     return blockLootTableGenerator.createSingleItemTable(this).apply(COPY_COLOR_LOOT_FUNCTION);
-  }
-
-  @Override
-  protected MapCodec<? extends ColoredHungSignBlock> codec() {
-    return CODEC;
   }
 }

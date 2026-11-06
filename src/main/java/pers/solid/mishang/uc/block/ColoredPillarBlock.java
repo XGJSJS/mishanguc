@@ -28,7 +28,6 @@ import pers.solid.mishang.uc.util.TextureMapReference;
 import java.util.List;
 
 public class ColoredPillarBlock extends RotatedPillarBlock implements ColoredBlock {
-  public static final MapCodec<ColoredPillarBlock> CODEC = simpleCodec(settings1 -> new ColoredPillarBlock(settings1, TextureMapReference.EMPTY));
   private final TextureMapReference textures;
 
   public ColoredPillarBlock(Properties settings, @Nullable TextureMapReference textures) {
@@ -65,10 +64,5 @@ public class ColoredPillarBlock extends RotatedPillarBlock implements ColoredBlo
   @Override
   public LootTable.Builder getLootTable(BlockLootSubProvider blockLootTableGenerator) {
     return blockLootTableGenerator.createSingleItemTable(this).apply(COPY_COLOR_LOOT_FUNCTION);
-  }
-
-  @Override
-  public MapCodec<? extends ColoredPillarBlock> codec() {
-    return CODEC;
   }
 }

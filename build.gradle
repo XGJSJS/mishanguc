@@ -1,14 +1,14 @@
 plugins {
-    id 'net.fabricmc.fabric-loom' version '1.17-SNAPSHOT'
+    id 'net.fabricmc.fabric-loom' version '1.19-SNAPSHOT'
     id 'maven-publish'
 
-    id "com.modrinth.minotaur" version "2.+"
-    id 'net.darkhax.curseforgegradle' version '1.1.+'
-    id "com.github.breadmoirai.github-release" version "2.5.2"
+//    id "com.modrinth.minotaur" version "2.+"
+//    id 'net.darkhax.curseforgegradle' version '1.1.+'
+//    id "com.github.breadmoirai.github-release" version "2.5.2"
 }
 
-import com.modrinth.minotaur.dependencies.ModDependency
-import net.darkhax.curseforgegradle.TaskPublishCurseForge
+//import com.modrinth.minotaur.dependencies.ModDependency
+//import net.darkhax.curseforgegradle.TaskPublishCurseForge
 
 base {
     archivesName = project.archives_base_name
@@ -58,9 +58,9 @@ dependencies {
     // Mod Menu
     api "com.terraformersmc:modmenu:$project.modmenu_version"
 
-    if (project.hasProperty('imblocker_version') && !project.imblocker_version.isEmpty()) {
-        runtimeOnly "maven.modrinth:imblocker-original:$project.imblocker_version"
-    }
+//    if (project.hasProperty('imblocker_version') && !project.imblocker_version.isEmpty()) {
+//        runtimeOnly "maven.modrinth:imblocker-original:$project.imblocker_version"
+//    }
 
     // Mod Menu
     implementation "com.terraformersmc:modmenu:$project.modmenu_version"
@@ -149,64 +149,64 @@ println "当前版本（${project.mod_version}）更新记录："
 final var content = getUpdateLog(project.mod_version)
 println content
 
-tasks.register('curseforge', TaskPublishCurseForge) {
-    def curseforgeToken = System.getenv("CURSEFORGE_TOKEN")
-    println("CurseForge 令牌: ${curseforgeToken instanceof String ? curseforgeToken.replaceAll("^(.+?)(.{0,6})\$", (s, a, b) -> a.replaceAll(".", "*") + b) : curseforgeToken}")
-    if (curseforgeToken) apiToken = curseforgeToken
+//tasks.register('curseforge', TaskPublishCurseForge) {
+//    def curseforgeToken = System.getenv("CURSEFORGE_TOKEN")
+//    println("CurseForge 令牌: ${curseforgeToken instanceof String ? curseforgeToken.replaceAll("^(.+?)(.{0,6})\$", (s, a, b) -> a.replaceAll(".", "*") + b) : curseforgeToken}")
+//    if (curseforgeToken) apiToken = curseforgeToken
+//
+//    def mainFile = upload('583071', jar)
+//    mainFile.changelog = content
+//    mainFile.changelogType = 'markdown'
+//    mainFile.releaseType = project.mod_version.contains('-') ? 'beta' : 'release'
+//
+//    for (final def v in ((project.supported_minecraft_versions as String).split(','))) {
+//        mainFile.addGameVersion v
+//    }
+//
+//    mainFile.addEnvironment 'Client', 'Server'
+//
+//    mainFile.addRelations 'requiredDependency', 'fabric-api'
+//    mainFile.withAdditionalFile(sourcesJar)
+//}
 
-    def mainFile = upload('583071', jar)
-    mainFile.changelog = content
-    mainFile.changelogType = 'markdown'
-    mainFile.releaseType = project.mod_version.contains('-') ? 'beta' : 'release'
+//modrinth {
+//    println "Modrinth 令牌：${token.get() instanceof String ? token.get().replaceAll("^(.+?)(.{0,6})\$", (s, a, b) -> a.replaceAll(".", "*") + b) : token.get()}"
+//
+//    projectId = "rItLmRo4" // 迷上城建模组的 Modrinth ID
+//    versionNumber = project.mod_version + '+mc' + project.minecraft_version
+//    versionType = project.mod_version.contains('-') ? 'beta' : 'release'  // until release of MC
+//    uploadFile = jar
+//    gameVersions = Arrays.asList(project.supported_minecraft_versions.split(','))
+//
+//    changelog = content
+//
+//    loaders = ['fabric']
+//
+//    dependencies = [
+//            new ModDependency('P7dR8mSH', 'required'), // Fabric API
+//    ]
+//}
+//
+//githubRelease {
+//    def githubToken = System.getenv("GITHUB_TOKEN")
+//    println "GitHub 令牌: ${githubToken instanceof String ? githubToken.replaceAll("^(.+?)(.{0,6})\$", (s, a, b) -> a.replaceAll(".", "*") + b) : githubToken}"
+//    if (githubToken) token = githubToken
+//    owner = "SolidBlock-cn"
+//    repo = "mishanguc"
+//    tagName = "v$project.mod_version"
+//    targetCommitish = "26.2"
+//    releaseName = "v$project.mod_version"
+//    body = content
+//    draft = true
+//    prerelease = false
+//    releaseAssets jar, sourcesJar
+//    allowUploadToExisting = true
+//    apiEndpoint = "https://api.github.com"
+//}
 
-    for (final def v in ((project.supported_minecraft_versions as String).split(','))) {
-        mainFile.addGameVersion v
-    }
-
-    mainFile.addEnvironment 'Client', 'Server'
-
-    mainFile.addRelations 'requiredDependency', 'fabric-api'
-    mainFile.withAdditionalFile(sourcesJar)
-}
-
-modrinth {
-    println "Modrinth 令牌：${token.get() instanceof String ? token.get().replaceAll("^(.+?)(.{0,6})\$", (s, a, b) -> a.replaceAll(".", "*") + b) : token.get()}"
-
-    projectId = "rItLmRo4" // 迷上城建模组的 Modrinth ID
-    versionNumber = project.mod_version + '+mc' + project.minecraft_version
-    versionType = project.mod_version.contains('-') ? 'beta' : 'release'  // until release of MC
-    uploadFile = jar
-    gameVersions = Arrays.asList(project.supported_minecraft_versions.split(','))
-
-    changelog = content
-
-    loaders = ['fabric']
-
-    dependencies = [
-            new ModDependency('P7dR8mSH', 'required'), // Fabric API
-    ]
-}
-
-githubRelease {
-    def githubToken = System.getenv("GITHUB_TOKEN")
-    println "GitHub 令牌: ${githubToken instanceof String ? githubToken.replaceAll("^(.+?)(.{0,6})\$", (s, a, b) -> a.replaceAll(".", "*") + b) : githubToken}"
-    if (githubToken) token = githubToken
-    owner = "SolidBlock-cn"
-    repo = "mishanguc"
-    tagName = "v$project.mod_version"
-    targetCommitish = "26.2"
-    releaseName = "v$project.mod_version"
-    body = content
-    draft = true
-    prerelease = false
-    releaseAssets jar, sourcesJar
-    allowUploadToExisting = true
-    apiEndpoint = "https://api.github.com"
-}
-
-publish {
-    dependsOn tasks.curseforge, tasks.modrinth, tasks.githubRelease
-}
+//publish {
+//    dependsOn tasks.curseforge, tasks.modrinth, tasks.githubRelease
+//}
 
 fabricApi {
     configureDataGeneration() {

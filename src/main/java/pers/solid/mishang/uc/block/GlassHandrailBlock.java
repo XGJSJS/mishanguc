@@ -30,7 +30,6 @@ import java.util.function.Function;
 
 @ApiStatus.AvailableSince("0.2.4")
 public class GlassHandrailBlock extends HandrailBlock {
-  public static final MapCodec<GlassHandrailBlock> CODEC = RecordCodecBuilder.mapCodec(instance -> instance.group(BuiltInRegistries.BLOCK.byNameCodec().fieldOf("base_block").forGetter(GlassHandrailBlock::baseBlock), propertiesCodec()).apply(instance, (block, settings1) -> new GlassHandrailBlock(block, settings1, null, null, BuiltInRegistries.BLOCK.getKey(block), false)));
   public final Identifier decorationTexture;
   private final CentralBlock central;
   private final CornerBlock corner;
@@ -63,10 +62,6 @@ public class GlassHandrailBlock extends HandrailBlock {
     corner = cornerProvider.apply(this, Properties.ofFullCopy(this).setId(ResourceKey.create(Registries.BLOCK, identifier.withSuffix("_corner"))));
     stair = stairProvider.apply(this, Properties.ofFullCopy(this).setId(ResourceKey.create(Registries.BLOCK, identifier.withSuffix("_stair"))));
     outer = outerProvider.apply(this, Properties.ofFullCopy(this).setId(ResourceKey.create(Registries.BLOCK, identifier.withSuffix("_outer"))));
-  }
-
-  protected static <B extends Block> MapCodec<B> createSubCodec(Function<B, GlassHandrailBlock> baseGetter, BiFunction<GlassHandrailBlock, Properties, B> function) {
-    return RecordCodecBuilder.mapCodec(instance -> instance.group(BuiltInRegistries.BLOCK.byNameCodec().fieldOf("base_rail").flatXmap(block -> block instanceof GlassHandrailBlock glassHandrailBlock ? DataResult.success(glassHandrailBlock) : DataResult.error(() -> block + " not instance of " + GlassHandrailBlock.class.getName()), DataResult::success).forGetter(baseGetter), propertiesCodec()).apply(instance, function));
   }
 
   @Environment(EnvType.CLIENT)
@@ -114,11 +109,6 @@ public class GlassHandrailBlock extends HandrailBlock {
     return baseBlock;
   }
 
-  @Override
-  protected MapCodec<? extends GlassHandrailBlock> codec() {
-    return CODEC;
-  }
-
   @Environment(EnvType.CLIENT)
   public static class TextureKeys {
     public static final TextureSlot FRAME = TextureSlot.create("frame");
@@ -130,8 +120,6 @@ public class GlassHandrailBlock extends HandrailBlock {
   }
 
   public static class CentralBlock extends HandrailCentralBlock<GlassHandrailBlock> {
-    public static final MapCodec<CentralBlock> CODEC = createSubCodec(b -> b.baseHandrail, CentralBlock::new);
-
     protected CentralBlock(GlassHandrailBlock baseRail, Properties settings) {
       super(baseRail, settings);
     }
@@ -150,16 +138,9 @@ public class GlassHandrailBlock extends HandrailBlock {
       final Identifier postSideModelId = MishangucModels.GLASS_HANDRAIL_POST_SIDE.create(this, textures, blockStateModelGenerator.modelOutput);
       blockStateModelGenerator.blockStateOutput.accept(createBlockStates(postModelId, postSideModelId, sideModelId));
     }
-
-    @Override
-    protected MapCodec<? extends CentralBlock> codec() {
-      return CODEC;
-    }
   }
 
   public static class CornerBlock extends HandrailCornerBlock<GlassHandrailBlock> {
-    public static final MapCodec<CornerBlock> CODEC = createSubCodec(b -> b.baseHandrail, CornerBlock::new);
-
     protected CornerBlock(GlassHandrailBlock baseRail, Properties settings) {
       super(baseRail, settings);
     }
@@ -175,16 +156,9 @@ public class GlassHandrailBlock extends HandrailBlock {
       final Identifier modelId = MishangucModels.GLASS_HANDRAIL_CORNER.create(this, baseHandrail.getTextures(), blockStateModelGenerator.modelOutput);
       blockStateModelGenerator.blockStateOutput.accept(createBlockStates(modelId));
     }
-
-    @Override
-    protected MapCodec<? extends CornerBlock> codec() {
-      return CODEC;
-    }
   }
 
   public static class StairBlock extends HandrailStairBlock<GlassHandrailBlock> {
-    public static final MapCodec<StairBlock> CODEC = createSubCodec(b -> b.baseHandrail, StairBlock::new);
-
     protected StairBlock(GlassHandrailBlock baseRail, Properties settings) {
       super(baseRail, settings);
     }
@@ -206,16 +180,9 @@ public class GlassHandrailBlock extends HandrailBlock {
       }
       blockStateModelGenerator.blockStateOutput.accept(createBlockStates(baseModelId));
     }
-
-    @Override
-    protected MapCodec<? extends StairBlock> codec() {
-      return CODEC;
-    }
   }
 
   public static class OuterBlock extends HandrailOuterBlock<GlassHandrailBlock> {
-    public static final MapCodec<OuterBlock> CODEC = createSubCodec(b -> b.baseHandrail, OuterBlock::new);
-
     protected OuterBlock(GlassHandrailBlock baseRail, Properties settings) {
       super(baseRail, settings);
     }
@@ -230,11 +197,6 @@ public class GlassHandrailBlock extends HandrailBlock {
     public void registerModels(ModelProvider modelProvider, BlockModelGenerators blockStateModelGenerator) {
       final Identifier modelId = MishangucModels.GLASS_HANDRAIL_OUTER.create(this, baseHandrail.getTextures(), blockStateModelGenerator.modelOutput);
       blockStateModelGenerator.blockStateOutput.accept(createBlockStates(modelId));
-    }
-
-    @Override
-    protected MapCodec<? extends OuterBlock> codec() {
-      return CODEC;
     }
   }
 }

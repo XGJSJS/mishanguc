@@ -2,6 +2,7 @@ package pers.solid.mishang.uc.screen;
 
 import com.google.common.collect.Lists;
 import com.google.common.collect.Streams;
+import com.mojang.blaze3d.platform.InputConstants;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
@@ -32,7 +33,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.jetbrains.annotations.ApiStatus;
 import org.jetbrains.annotations.Nullable;
 import org.jetbrains.annotations.UnmodifiableView;
-import org.lwjgl.glfw.GLFW;
+import org.lwjgl.sdl.SDLKeycode;
 import pers.solid.mishang.uc.MishangUtils;
 import pers.solid.mishang.uc.Mishanguc;
 import pers.solid.mishang.uc.blockentity.BlockEntityWithText;
@@ -1146,7 +1147,7 @@ public abstract class AbstractSignBlockEditScreen<T extends BlockEntityWithText>
   @Override
   public boolean keyPressed(KeyEvent input) {
     final int keyCode = input.input();
-    if (keyCode == GLFW.GLFW_KEY_LEFT_SHIFT || keyCode == GLFW.GLFW_KEY_RIGHT_SHIFT) {
+    if (keyCode == SDLKeycode.SDLK_LSHIFT || keyCode == SDLKeycode.SDLK_RSHIFT) {
       // 因技术限制，在修改高度以及按下/松开 shift 后需要更新。
       hideButton.updateTooltip();
     }
@@ -1156,25 +1157,25 @@ public abstract class AbstractSignBlockEditScreen<T extends BlockEntityWithText>
           return true;
           Ctrl + B 与复述功能冲突。
         } else */
-      if (keyCode == GLFW.GLFW_KEY_I) {
+      if (keyCode == SDLKeycode.SDLK_I) {
         italicButton.onPress(input);
         return true;
-      } else if (keyCode == GLFW.GLFW_KEY_U) {
+      } else if (keyCode == SDLKeycode.SDLK_U) {
         underlineButton.onPress(input);
         return true;
-      } else if (keyCode == GLFW.GLFW_KEY_S) {
+      } else if (keyCode == SDLKeycode.SDLK_S) {
         strikethroughButton.onPress(input);
         return true;
-      } else if (keyCode == GLFW.GLFW_KEY_O) {
+      } else if (keyCode == SDLKeycode.SDLK_O) {
         obfuscatedButton.onPress(input);
         return true;
-      } else if (keyCode == GLFW.GLFW_KEY_MINUS || keyCode == GLFW.GLFW_KEY_KP_SUBTRACT) {
+      } else if (keyCode == SDLKeycode.SDLK_MINUS || keyCode == SDLKeycode.SDLK_KP_MINUS) {
         removeTextButton.onPress(input);
         return true;
-      } else if (keyCode == GLFW.GLFW_KEY_KP_ADD) {
+      } else if (keyCode == SDLKeycode.SDLK_KP_PLUS) {
         addTextButton.onPress(input);
         return true;
-      } else if (keyCode == GLFW.GLFW_KEY_E && !isAcceptingCustomValue && !hidden) {
+      } else if (keyCode == SDLKeycode.SDLK_E && !isAcceptingCustomValue && !hidden) {
         final GuiEventListener focused = getFocused();
         if (focused instanceof FloatButtonWidget floatButtonWidget && focused != horizontalAlignButton && focused != verticalAlignButton) {
           customValueStartAccepting(floatButtonWidget);
@@ -1184,25 +1185,25 @@ public abstract class AbstractSignBlockEditScreen<T extends BlockEntityWithText>
         return true;
       }
     } else if (input.hasControlDown() && input.hasShiftDown() && !input.hasAltDown()) {
-      if (keyCode == GLFW.GLFW_KEY_EQUAL) {
+      if (keyCode == SDLKeycode.SDLK_EQUALS) {
         addTextButton.onPress(input);
         return true;
-      } else if (keyCode == GLFW.GLFW_KEY_UP) {
+      } else if (keyCode == SDLKeycode.SDLK_UP) {
         moveUpButton.onPress(input);
         return true;
-      } else if (keyCode == GLFW.GLFW_KEY_DOWN) {
+      } else if (keyCode == SDLKeycode.SDLK_DOWN) {
         moveDownButton.onPress(input);
         return true;
       }
     }
     if (isAcceptingCustomValue) {
-      if (keyCode == GLFW.GLFW_KEY_ESCAPE || (keyCode == GLFW.GLFW_KEY_ENTER || keyCode == GLFW.GLFW_KEY_KP_ENTER) && getFocused() == customValueTextField) {
+      if (keyCode == SDLKeycode.SDLK_ESCAPE || (keyCode == SDLKeycode.SDLK_RETURN || keyCode == SDLKeycode.SDLK_KP_ENTER) && getFocused() == customValueTextField) {
         customValueStopAccepting();
         changed = true;
         return true;
       }
     } else if (isSelectingButtonToSetCustom) {
-      if (keyCode == GLFW.GLFW_KEY_ESCAPE) {
+      if (keyCode == SDLKeycode.SDLK_ESCAPE) {
         isSelectingButtonToSetCustom = false;
         rebuildWidgets();
         return true;
@@ -1213,17 +1214,17 @@ public abstract class AbstractSignBlockEditScreen<T extends BlockEntityWithText>
           return true;
         }
       }
-    } else if (getFocused() == null && (keyCode == GLFW.GLFW_KEY_ENTER || keyCode == GLFW.GLFW_KEY_KP_ENTER)) {
+    } else if (getFocused() == null && (keyCode == SDLKeycode.SDLK_RETURN || keyCode == SDLKeycode.SDLK_KP_ENTER)) {
       final TextFieldListWidget.Entry newEntry = textFieldListWidget.addEmptyTextField(-1);
       textFieldListWidget.setFocusedAndSelected(newEntry, false, false);
       setFocused(textFieldListWidget);
       return true;
     } else if (textFieldListWidget.isSimplified() && getFocused() == hideButton) {
-      if (keyCode == GLFW.GLFW_KEY_UP) {
+      if (keyCode == SDLKeycode.SDLK_UP) {
         textFieldListWidget.increaseHeight(-8);
         hideButton.updateTooltip();
         return true;
-      } else if (keyCode == GLFW.GLFW_KEY_DOWN || keyCode == GLFW.GLFW_HAT_DOWN || keyCode == GLFW.GLFW_GAMEPAD_BUTTON_DPAD_DOWN) {
+      } else if (keyCode == SDLKeycode.SDLK_DOWN) {
         textFieldListWidget.increaseHeight(8);
         hideButton.updateTooltip();
         return true;
@@ -1234,7 +1235,7 @@ public abstract class AbstractSignBlockEditScreen<T extends BlockEntityWithText>
 
   @Override
   public boolean keyReleased(KeyEvent input) {
-    if (input.key() == GLFW.GLFW_KEY_LEFT_SHIFT || input.key() == GLFW.GLFW_KEY_RIGHT_SHIFT) {
+    if (input.key() == SDLKeycode.SDLK_LSHIFT || input.key() == SDLKeycode.SDLK_RSHIFT) {
       // 因技术限制，在修改高度以及按下/松开 shift 后需要更新。
       hideButton.updateTooltip();
     }

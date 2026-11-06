@@ -47,12 +47,6 @@ import pers.solid.mishang.uc.data.MishangucTextureKeys;
 import java.util.*;
 
 public class AutoConnectWallLightBlock extends WallLightBlock implements LightConnectable {
-  public static final MapCodec<AutoConnectWallLightBlock> CODEC = RecordCodecBuilder.mapCodec(instance -> instance.group(
-      Codec.STRING.fieldOf("light_color").forGetter(b -> b.lightColor),
-      Codec.STRING.fieldOf("shape").forGetter(b -> b.shape),
-      propertiesCodec(),
-      Codec.BOOL.fieldOf("large_shape").forGetter(b -> b.largeShape)
-  ).apply(instance, AutoConnectWallLightBlock::new));
   /**
    * 每个朝向中，中心基础碰撞箱。任何自动连接的灯都会有此碰撞箱，且不进行任何连接的灯仅使用此碰撞箱。键为灯的 {@link #FACING} 属性。
    */
@@ -273,11 +267,6 @@ public class AutoConnectWallLightBlock extends WallLightBlock implements LightCo
       }
     }
     blockStateModelGenerator.blockStateOutput.accept(blockStateSupplier);
-  }
-
-  @Override
-  protected MapCodec<? extends AutoConnectWallLightBlock> codec() {
-    return CODEC;
   }
 
   @Override

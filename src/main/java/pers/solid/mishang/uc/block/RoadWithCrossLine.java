@@ -35,8 +35,6 @@ public interface RoadWithCrossLine extends Road {
   }
 
   class Impl extends AbstractRoadBlock implements RoadWithCrossLine {
-    public static final MapCodec<Impl> CODEC = RecordCodecBuilder.mapCodec(i -> i.group(propertiesCodec(), lineColorFieldCodec()).apply(i, Impl::new));
-
     public Impl(Properties settings, LineColor lineColor) {
       super(settings, lineColor, LineType.NORMAL);
     }
@@ -54,12 +52,6 @@ public interface RoadWithCrossLine extends Road {
           .lineTop(lineColor.getSerializedName() + "_cross_line");
       final Identifier modelId = road.uploadModel("_with_cross_line", textures, blockStateModelGenerator, MishangucTextureKeys.BASE, MishangucTextureKeys.LINE_SIDE, MishangucTextureKeys.LINE_TOP);
       blockStateModelGenerator.blockStateOutput.accept(road.composeState(MultiVariantGenerator.dispatch(road, BlockModelGenerators.createRotatedVariants(BlockModelGenerators.plainModel(modelId)))));
-    }
-
-
-    @Override
-    protected MapCodec<? extends Impl> codec() {
-      return CODEC;
     }
 
     @Override

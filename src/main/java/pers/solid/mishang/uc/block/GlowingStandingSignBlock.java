@@ -33,7 +33,6 @@ import java.util.Optional;
  * 发光的直立告示牌。
  */
 public class GlowingStandingSignBlock extends StandingSignBlock {
-  public static final MapCodec<GlowingStandingSignBlock> CODEC = RecordCodecBuilder.mapCodec(instance -> instance.group(baseBlockCodec(), propertiesCodec()).apply(instance, GlowingStandingSignBlock::new));
   protected static final Identifier DEFAULT_GLOW_TEXTURE = Mishanguc.id("block/white_light");
   public Identifier glowTexture = DEFAULT_GLOW_TEXTURE;
 
@@ -100,10 +99,5 @@ public class GlowingStandingSignBlock extends StandingSignBlock {
         .unlockedBy("has_base_block", recipeGenerator.has(baseBlock))
         .unlockedBy("has_sign", recipeGenerator.has(WallSignBlocks.INVISIBLE_GLOWING_WALL_SIGN))
         .group(getRecipeGroup());
-  }
-
-  @Override
-  protected MapCodec<? extends GlowingStandingSignBlock> codec() {
-    return CODEC;
   }
 }

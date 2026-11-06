@@ -1,8 +1,0 @@
-{
-  "parent": "mishanguc:block/glass_handrail_outer",
-  "textures": {
-    "decoration": "minecraft:block/white_concrete",
-    "frame": "minecraft:block/cobblestone",
-    "glass": "mishanguc:block/glass_unframed"
-  }
-}

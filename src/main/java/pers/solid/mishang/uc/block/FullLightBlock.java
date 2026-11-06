@@ -18,11 +18,6 @@ import net.minecraft.world.level.block.Block;
 import pers.solid.mishang.uc.data.MishangucModels;
 
 public class FullLightBlock extends Block implements MishangucBlock {
-  public static final MapCodec<FullLightBlock> CODEC = RecordCodecBuilder.mapCodec(i -> i.group(
-      propertiesCodec(),
-      BuiltInRegistries.ITEM.byNameCodec().fieldOf("dye_ingredient").forGetter(b -> b.dyeIngredient),
-      BuiltInRegistries.ITEM.byNameCodec().fieldOf("concrete_ingredient").forGetter(b -> b.concreteIngredient)
-  ).apply(i, FullLightBlock::new));
   private final Item dyeIngredient;
   private final Item concreteIngredient;
 
@@ -52,11 +47,6 @@ public class FullLightBlock extends Block implements MishangucBlock {
         .unlockedBy(RecipeProvider.getHasName(dyeIngredient), recipeGenerator.has(dyeIngredient))
         .unlockedBy(RecipeProvider.getHasName(Items.GLOWSTONE), recipeGenerator.has(Items.GLOWSTONE))
         .unlockedBy(RecipeProvider.getHasName(concreteIngredient), recipeGenerator.has(concreteIngredient));
-  }
-
-  @Override
-  protected MapCodec<? extends FullLightBlock> codec() {
-    return CODEC;
   }
 
   @Override

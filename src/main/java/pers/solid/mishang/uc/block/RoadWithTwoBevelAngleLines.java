@@ -1,8 +1,5 @@
 package pers.solid.mishang.uc.block;
 
-import com.mojang.datafixers.util.Function3;
-import com.mojang.serialization.MapCodec;
-import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.ChatFormatting;
@@ -22,7 +19,6 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Mirror;
 import net.minecraft.world.level.block.Rotation;
 import net.minecraft.world.level.block.SlabBlock;
-import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
@@ -76,13 +72,7 @@ public interface RoadWithTwoBevelAngleLines extends Road {
     return Road.super.withPlacementState(state, ctx).setValue(FACING, ctx.getPlayer() != null && ctx.getPlayer().isShiftKeyDown() ? playerFacing.getOpposite() : playerFacing);
   }
 
-  static <B extends AbstractRoadBlock & RoadWithTwoBevelAngleLines> MapCodec<B> createCodec(RecordCodecBuilder<B, BlockBehaviour.Properties> settingsCodec, Function3<BlockBehaviour.Properties, LineColor, LineType, B> function) {
-    return RecordCodecBuilder.mapCodec(i -> i.group(settingsCodec, AbstractRoadBlock.lineColorFieldCodec(), AbstractRoadBlock.lineTypeFieldCodec()).apply(i, function));
-  }
-
   class ImplWithTwoLayerTexture extends AbstractRoadBlock implements RoadWithTwoBevelAngleLines {
-    public static final MapCodec<ImplWithTwoLayerTexture> CODEC = RoadWithTwoBevelAngleLines.createCodec(propertiesCodec(), ImplWithTwoLayerTexture::new);
-
     public ImplWithTwoLayerTexture(Properties settings, LineColor lineColor, LineType lineType) {
       super(settings, lineColor, lineType);
       registerDefaultState(defaultBlockState().setValue(FACING, Direction.SOUTH));
@@ -116,11 +106,6 @@ public interface RoadWithTwoBevelAngleLines extends Road {
     }
 
     @Override
-    protected MapCodec<? extends ImplWithTwoLayerTexture> codec() {
-      return CODEC;
-    }
-
-    @Override
     public RecipeBuilder getPaintingRecipe(Block base, Block self, RecipeProvider recipeGenerator) {
       return recipeGenerator.shaped(RecipeCategory.BUILDING_BLOCKS, self, 3)
           .pattern(" **")
@@ -134,8 +119,6 @@ public interface RoadWithTwoBevelAngleLines extends Road {
   }
 
   class ImplWithThreeLayerTexture extends AbstractRoadBlock implements RoadWithTwoBevelAngleLines {
-    public static final MapCodec<ImplWithThreeLayerTexture> CODEC = RoadWithTwoBevelAngleLines.createCodec(propertiesCodec(), ImplWithThreeLayerTexture::new);
-
     public ImplWithThreeLayerTexture(Properties settings, LineColor lineColor, LineType lineType) {
       super(settings, lineColor, lineType);
       registerDefaultState(defaultBlockState().setValue(FACING, Direction.SOUTH));
@@ -166,11 +149,6 @@ public interface RoadWithTwoBevelAngleLines extends Road {
     @Override
     public void appendDescriptionTooltip(List<Component> tooltip, TooltipContext options) {
       tooltip.add(Component.translatable("lineType.biBevelAngleLine", lineColor.getName(), lineType.getName()).withStyle(ChatFormatting.BLUE));
-    }
-
-    @Override
-    protected MapCodec<? extends ImplWithThreeLayerTexture> codec() {
-      return CODEC;
     }
 
     @Override

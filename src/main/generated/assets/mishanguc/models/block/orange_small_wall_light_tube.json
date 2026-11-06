@@ -1,6 +1,0 @@
-{
-  "parent": "mishanguc:block/small_wall_light_tube",
-  "textures": {
-    "light": "mishanguc:block/orange_light"
-  }
-}

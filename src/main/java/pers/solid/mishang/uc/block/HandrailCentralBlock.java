@@ -210,9 +210,6 @@ public abstract class HandrailCentralBlock<T extends HandrailBlock> extends Cros
   }
 
   @Override
-  protected abstract MapCodec<? extends HandrailCentralBlock<?>> codec();
-
-  @Override
   protected boolean isPathfindable(BlockState state, PathComputationType type) {
     return false;
   }

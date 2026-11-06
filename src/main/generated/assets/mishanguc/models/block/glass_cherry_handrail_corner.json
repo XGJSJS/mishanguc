@@ -1,8 +1,0 @@
-{
-  "parent": "mishanguc:block/glass_handrail_corner",
-  "textures": {
-    "decoration": "minecraft:block/cherry_planks",
-    "frame": "minecraft:block/cherry_log",
-    "glass": "mishanguc:block/glass_unframed"
-  }
-}

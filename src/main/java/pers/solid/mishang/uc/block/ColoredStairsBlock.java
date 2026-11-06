@@ -33,10 +33,6 @@ import pers.solid.mishang.uc.item.ColoredTintSource;
 import java.util.List;
 
 public class ColoredStairsBlock extends StairBlock implements ColoredBlock {
-  public static final MapCodec<ColoredStairsBlock> CODEC = RecordCodecBuilder.mapCodec(i -> i.group(
-      BuiltInRegistries.BLOCK.byNameCodec().fieldOf("base_block").forGetter(o -> o.baseBlock),
-      propertiesCodec()
-  ).apply(i, ColoredStairsBlock::new));
   public final Block baseBlock;
 
   public ColoredStairsBlock(Block baseBlock, Properties settings) {
@@ -79,10 +75,5 @@ public class ColoredStairsBlock extends StairBlock implements ColoredBlock {
   public RecipeBuilder getCraftingRecipe(RecipeProvider recipeGenerator) {
     return ((ShapedRecipeBuilder) recipeGenerator.stairBuilder(this, Ingredient.of(baseBlock)))
         .unlockedBy(RecipeProvider.getHasName(baseBlock), recipeGenerator.has(baseBlock));
-  }
-
-  @Override
-  public MapCodec<? extends ColoredStairsBlock> codec() {
-    return CODEC;
   }
 }

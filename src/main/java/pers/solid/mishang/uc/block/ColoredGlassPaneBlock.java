@@ -1,7 +1,5 @@
 package pers.solid.mishang.uc.block;
 
-import com.mojang.serialization.MapCodec;
-import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.data.models.BlockModelGenerators;
@@ -33,11 +31,6 @@ import pers.solid.mishang.uc.item.ColoredTintSource;
 import java.util.List;
 
 public class ColoredGlassPaneBlock extends IronBarsBlock implements ColoredBlock {
-  public static final MapCodec<ColoredGlassPaneBlock> CODEC = RecordCodecBuilder.mapCodec(i -> i.group(
-      Identifier.CODEC.fieldOf("pane_material").forGetter(b -> b.paneTexture),
-      Identifier.CODEC.fieldOf("edge_material").forGetter(b -> b.edgeTexture),
-      propertiesCodec()
-  ).apply(i, ColoredGlassPaneBlock::new));
   private final Identifier paneTexture;
   private final Identifier edgeTexture;
 
@@ -106,10 +99,5 @@ public class ColoredGlassPaneBlock extends IronBarsBlock implements ColoredBlock
   @Override
   public LootTable.Builder getLootTable(BlockLootSubProvider blockLootTableGenerator) {
     return blockLootTableGenerator.createSilkTouchOnlyTable(this).apply(COPY_COLOR_LOOT_FUNCTION);
-  }
-
-  @Override
-  public MapCodec<? extends ColoredGlassPaneBlock> codec() {
-    return CODEC;
   }
 }

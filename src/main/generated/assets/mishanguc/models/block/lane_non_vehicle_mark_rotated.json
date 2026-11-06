@@ -1,6 +1,0 @@
-{
-  "parent": "mishanguc:block/road_mark_rotated",
-  "textures": {
-    "texture": "mishanguc:block/lane_non_vehicle"
-  }
-}

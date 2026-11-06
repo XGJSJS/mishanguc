@@ -1,8 +1,0 @@
-{
-  "parent": "mishanguc:block/hung_sign_body",
-  "textures": {
-    "bar": "minecraft:block/blue_ice",
-    "texture": "minecraft:block/ice",
-    "texture_top": "minecraft:block/blue_ice"
-  }
-}

@@ -53,7 +53,6 @@ import static net.minecraft.world.level.material.Fluids.WATER;
 
 public class CornerLightBlock extends HorizontalDirectionalBlock
     implements SimpleWaterloggedBlock, LightConnectable, MishangucBlock {
-  public static final MapCodec<CornerLightBlock> CODEC = RecordCodecBuilder.mapCodec(instance -> instance.group(Codec.STRING.fieldOf("light_color").forGetter(b -> b.lightColor), propertiesCodec()).apply(instance, CornerLightBlock::new));
   private static final EnumProperty<Half> BLOCK_HALF = BlockStateProperties.HALF;
   private static final BooleanProperty WATERLOGGED = BlockStateProperties.WATERLOGGED;
   private static final Map<Direction, VoxelShape> SHAPE_PER_DIRECTION_WHEN_BOTTOM = MishangUtils.createDirectionToUnionShape(
@@ -200,10 +199,5 @@ public class CornerLightBlock extends HorizontalDirectionalBlock
         .requires(wall)
         .requires(wall)
         .unlockedBy(RecipeProvider.getHasName(wall), recipeGenerator.has(wall));
-  }
-
-  @Override
-  protected MapCodec<? extends CornerLightBlock> codec() {
-    return CODEC;
   }
 }

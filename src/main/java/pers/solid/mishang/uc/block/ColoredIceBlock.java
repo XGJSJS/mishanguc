@@ -26,8 +26,6 @@ import pers.solid.mishang.uc.util.TextureMapReference;
 import java.util.List;
 
 public class ColoredIceBlock extends IceBlock implements ColoredBlock {
-  public static final MapCodec<ColoredIceBlock> CODEC = simpleCodec(settings1 -> new ColoredIceBlock(settings1, TextureMapReference.EMPTY));
-
   private final TextureMapReference textures;
 
   public ColoredIceBlock(Properties settings, TextureMapReference textures) {
@@ -61,10 +59,5 @@ public class ColoredIceBlock extends IceBlock implements ColoredBlock {
   @Override
   public LootTable.Builder getLootTable(BlockLootSubProvider blockLootTableGenerator) {
     return blockLootTableGenerator.createSilkTouchOnlyTable(this).apply(COPY_COLOR_LOOT_FUNCTION);
-  }
-
-  @Override
-  public MapCodec<? extends ColoredIceBlock> codec() {
-    return CODEC;
   }
 }

@@ -1,6 +1,0 @@
-{
-  "parent": "mishanguc:block/thick_strip_wall_light_tube",
-  "textures": {
-    "light": "mishanguc:block/yellow_light"
-  }
-}

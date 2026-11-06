@@ -1,6 +1,0 @@
-{
-  "parent": "mishanguc:block/colored_cube_all",
-  "textures": {
-    "all": "mishanguc:block/pale_end_stone_bricks"
-  }
-}
